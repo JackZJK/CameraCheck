@@ -1,0 +1,28 @@
+package com.sudiyi.apps.cameracheck.util;
+
+import android.content.Context;
+import android.content.pm.PackageManager;
+
+/**
+ * Author: Linkin
+ * Time：2018/8/27
+ * Email：liuzhongjun@novel-supertv.com
+ * Blog：https://blog.csdn.net/Android_Technology
+ * Desc: 设备相关工具类
+ */
+
+public final class DeviceUtils {
+
+    /**
+     * 检验设备是否有摄像头
+     */
+    public static boolean checkCameraHardware(Context context) {
+        if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
+            // this device has a camera1
+            return true;
+        } else {
+            // no camera1 on this device
+            return false;
+        }
+    }
+}

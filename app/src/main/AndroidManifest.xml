@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.sudiyi.apps.cameracheck">
+
+
+    <uses-permission android:name="android.permission.GET_TASKS" />
+
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <!--相机必须权限-->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <!--相机录像权限-->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <!--存储读写权限-->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!--如果需要用GPS位置信息标记图像，则必须请求设置此权限-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!-- 下面这个特性声明针对Android 5（API级别21）或更高才需要添加-->
+    <uses-feature android:name="android.hardware.location.gps" />
+
+
+    <!-- 相机持有特性 -->
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+    <uses-feature
+        android:name="android.hardware.camera.autofocus"
+        android:required="false" />
+
+
+    <application
+        android:name=".App"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:largeHeap="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!--服务注册-->
+        <service
+            android:name="com.sudiyi.apps.cameracheck.PhotoWindowService"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="app.custom.permission"
+            android:persistent="true"
+            android:priority="1000">
+            <intent-filter android:priority="1000">
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </service>
+        <!--广播注册-->
+        <receiver
+            android:name="com.sudiyi.apps.cameracheck.BroadReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter android:priority="1000">
+                <action android:name="com.sudiyi.checkcamera.capture" /><!-- 检测拍照 -->
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.USER_PRESENT" /> <!-- 手机开屏广播 -->
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.sudiyi.checkcamera.repeat" /> <!-- 闹钟重复检测 -->
+            </intent-filter>
+
+            <intent-filter android:priority="1000">
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+    </application>
+
+</manifest>
