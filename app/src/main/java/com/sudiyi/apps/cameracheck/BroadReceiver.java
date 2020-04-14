@@ -14,6 +14,7 @@ import static com.sudiyi.apps.cameracheck.App.getContext;
 
 /**
  * Created by JackZheng on 2017/3/29.
+ 
  * 广播接收
  */
 public class BroadReceiver extends BroadcastReceiver {
